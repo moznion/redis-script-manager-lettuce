@@ -1,4 +1,4 @@
-Redis Script Manager for Java with [lettuce](https://github.com/mp911de/lettuce) [![Build Status](https://travis-ci.org/moznion/redis-script-manager-lettuce.svg?branch=master)](https://travis-ci.org/moznion/redis-script-manager-lettuce)
+Redis Script Manager for Java with [lettuce](https://github.com/mp911de/lettuce) [![Build Status](https://travis-ci.org/moznion/redis-script-manager-lettuce.svg?branch=master)](https://travis-ci.org/moznion/redis-script-manager-lettuce) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.moznion/redis-script-manager-lettuce/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.moznion/redis-script-manager-lettuce)
 ==
 
 Simple manager for scripting of Redis with [lettuce](https://github.com/mp911de/lettuce).  
