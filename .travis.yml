@@ -3,4 +3,6 @@ jdk:
   - oraclejdk8
 install: mvn install -DskipTests=true -Dgpg.skip=true
 sudo: false
+services:
+  - redis-server
 
