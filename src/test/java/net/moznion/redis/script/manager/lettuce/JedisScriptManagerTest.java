@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
+import net.moznion.redis.script.manager.core.ScriptManager;
+
 import com.lambdaworks.redis.RedisClient;
 import com.lambdaworks.redis.RedisURI;
 import com.lambdaworks.redis.ScriptOutputType;
@@ -49,5 +51,29 @@ public class JedisScriptManagerTest {
 
         scriptManager.eval(new String[] { key });
         assertThat(commands.get(key)).isEqualTo("666");
+    }
+
+    @Test
+    public void lettuceTestWithSHA1() {
+        final StatefulRedisConnection<String, String> connect =
+                RedisClient.create().connect(new RedisURI("127.0.0.1", 6379, 10, TimeUnit.SECONDS));
+        final RedisCommands<String, String> commands = connect.sync();
+        commands.scriptFlush();
+
+        final String script = "redis.call('SET', KEYS[1], ARGV[1])";
+
+        final LettuceScriptManager<String, String> scriptManager =
+                new LettuceScriptManager<>(commands,
+                                           script,
+                                           ScriptManager.digestSHA1(script),
+                                           ScriptOutputType.VALUE);
+        final String key = "script_manager_test";
+
+        assertThat(scriptManager.isNoScript).isTrue();
+        scriptManager.eval(new String[] { key }, new String[] { "42" });
+        assertThat(commands.get(key)).isEqualTo("42");
+        scriptManager.eval(new String[] { key }, new String[] { "43" });
+        assertThat(commands.get(key)).isEqualTo("43");
+        assertThat(scriptManager.isNoScript).isFalse();
     }
 }

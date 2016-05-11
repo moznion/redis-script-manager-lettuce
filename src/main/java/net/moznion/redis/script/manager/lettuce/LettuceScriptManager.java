@@ -19,13 +19,29 @@ public class LettuceScriptManager<K, V> extends ScriptManager<K, V> {
     public LettuceScriptManager(final RedisScriptingCommands<K, V> commands,
                                 final V script,
                                 final ScriptOutputType outputType) {
-        this(commands, script, outputType, true);
+        this(commands, script, null, outputType, true);
+    }
+
+    public LettuceScriptManager(final RedisScriptingCommands<K, V> commands,
+                                final V script,
+                                final String sha1,
+                                final ScriptOutputType outputType) {
+        this(commands, script, sha1, outputType, true);
     }
 
     public LettuceScriptManager(final RedisScriptingCommands<K, V> commands,
                                 final V script,
                                 final ScriptOutputType outputType,
                                 final boolean useEvalSHA) {
+        this(commands, script, null, outputType, useEvalSHA);
+    }
+
+    public LettuceScriptManager(final RedisScriptingCommands<K, V> commands,
+                                final V script,
+                                final String sha1,
+                                final ScriptOutputType outputType,
+                                final boolean useEvalSHA) {
+        super(sha1);
         this.commands = commands;
         this.script = script;
         this.outputType = outputType;
