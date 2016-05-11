@@ -3,7 +3,7 @@
 
     <groupId>net.moznion</groupId>
     <artifactId>redis-script-manager-lettuce</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>redis-script-manager-lettuce</name>
@@ -168,7 +168,7 @@
         <url>https://github.com/moznion/redis-script-manager-lettuce</url>
         <connection>scm:git:git@github.com:moznion/redis-script-manager-lettuce.git</connection>
         <developerConnection>scm:git:git@github.com:moznion/redis-script-manager-lettuce.git</developerConnection>
-        <tag>redis-script-manager-lettuce-0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
