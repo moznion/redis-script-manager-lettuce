@@ -1,4 +1,6 @@
-0.0.1 2016-05-10T07:18:28Z
+0.1.0 2016-05-11T04:02:31Z
+    - Support to pass pre-calculated SHA1 string to constructor
 
+0.0.1 2016-05-10T07:18:28Z
     - Original version
 
