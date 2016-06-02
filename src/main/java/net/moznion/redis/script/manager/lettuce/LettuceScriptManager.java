@@ -64,7 +64,7 @@ public class LettuceScriptManager<K, V> extends ScriptManager<K, V> {
             try {
                 return commands.evalsha(sha1, outputType, keys, values);
             } catch (RedisCommandExecutionException e) {
-                if (!e.getMessage().startsWith("NOSCRIPT")) {
+                if (!e.getMessage().contains("NOSCRIPT")) {
                     // Not "NOSCRIPT" error; unexpected
                     throw e;
                 }
