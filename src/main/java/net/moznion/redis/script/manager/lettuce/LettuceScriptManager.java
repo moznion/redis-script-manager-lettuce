@@ -1,5 +1,8 @@
 package net.moznion.redis.script.manager.lettuce;
 
+import java.util.Collection;
+import java.util.List;
+
 import net.moznion.redis.script.manager.core.ScriptManager;
 
 import com.lambdaworks.redis.RedisCommandExecutionException;
@@ -62,9 +65,19 @@ public class LettuceScriptManager<K, V> extends ScriptManager<K, V> {
         if (useEvalSHA) {
             final String sha1 = getSHA1(script);
             try {
-                return commands.evalsha(sha1, outputType, keys, values);
+                final Object evaled = commands.evalsha(sha1, outputType, keys, values);
+                if (evaled instanceof List<?>) {
+                    // For ScriptOutputType.MULTI
+                    if (!((Collection<?>) evaled).isEmpty()) {
+                        final Object head = ((List<?>) evaled).get(0);
+                        if (head instanceof RuntimeException) {
+                            throw (RuntimeException) head;
+                        }
+                    }
+                }
+                return evaled;
             } catch (RedisCommandExecutionException e) {
-                if (!e.getMessage().contains("NOSCRIPT")) {
+                if (!e.getMessage().startsWith("NOSCRIPT")) {
                     // Not "NOSCRIPT" error; unexpected
                     throw e;
                 }
